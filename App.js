@@ -43,6 +43,14 @@ export default class App extends React.Component {
     this.setData();
   }
 
+  editTask = (id, text) => {
+    let index = this.state.tasks.findIndex(item => item.id == id);
+    let newTasks = this.state.tasks;
+    newTasks[index].text = text;
+    this.setState({tasks: newTasks});
+    this.setData();
+  }
+
   changeChecked = (id) => {
     let index = this.state.tasks.findIndex(item => item.id == id);
     let newTasks = this.state.tasks;
@@ -115,6 +123,7 @@ export default class App extends React.Component {
                     id={item.id}
                     deleteFunction = {this.deleteTask}
                     changeCheckedFunction = {this.changeChecked}
+                    editTaskFunction = {this.editTask}
                     />
                   )
 
