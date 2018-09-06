@@ -21,6 +21,7 @@ export default class App extends React.Component {
       text: this.state.text,
       finished: false 
     })
+
     this.setState({
         tasks: tasks,
         text: ''
@@ -37,19 +38,27 @@ export default class App extends React.Component {
         <ScrollView style={styles.todoList}>
           <KeyboardAvoidingView style={{ flex: 1 }}
                   keyboardVerticalOffset={100} behavior={"position"}>
+            {
+              this.state.tasks.map(item => {
+                  return(
+                    <TodoElement text={item.text} checked={item.finished} key={item.text}/>
+                  )
+
+              })
+            }
             
-            <TodoElement text="Finish my class" finished={true}/>
-            <TodoElement text="Finish another thing" finished={false}/>
-            <TodoElement text="woooo" finished={false}/>
+            
             <Text>{this.state.text}</Text>
             <View style={styles.input}>
               <Icon name="note-add" />  
               
-              <TextInput 
+              <TextInput
+                ref={(input) => { this.textInput = input }} 
                 style={styles.textInput}
                 onChangeText={(text) => this.setState({text: text})}
                 onSubmitEditing={this.handleSubmit}
                 blurOnSubmit
+                clearTextOnFocus
                 returnKeyType='done'
                 returnKeyLabel='done'
                 clearButtonMode="always"
