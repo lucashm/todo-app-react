@@ -13,14 +13,15 @@ export default class TodoElement extends React.Component {
     return (
       <View style={styles.container}>
         <CheckBox 
-            checked={this.props.finished}
+            checked={this.props.checked}
             title={this.props.text}
             checkedIcon='dot-circle-o'
             uncheckedIcon='circle-o'
+            onPress={() => this.props.changeCheckedFunction(this.props.id)}
             />
           <Icon 
             name="delete"
-            onPress={() => {console.log("deletado!")}}
+            onPress={() => this.props.deleteFunction(this.props.id)}
           />
         
       </View>
