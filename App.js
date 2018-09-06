@@ -7,6 +7,26 @@ import { Dimensions } from "react-native";
 let width = Dimensions.get('window').width;
 
 export default class App extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+        input: '',
+        tasks: []
+      }
+  }
+
+  handleSubmit = (text) => {
+    let tasks = this.state.tasks;
+    tasks.push({
+      text: this.state.text,
+      finished: false 
+    })
+    this.setState({
+        tasks: tasks,
+        text: ''
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -21,12 +41,20 @@ export default class App extends React.Component {
             <TodoElement text="Finish my class" finished={true}/>
             <TodoElement text="Finish another thing" finished={false}/>
             <TodoElement text="woooo" finished={false}/>
-            
+            <Text>{this.state.text}</Text>
             <View style={styles.input}>
               <Icon name="note-add" />  
+              
               <TextInput 
                 style={styles.textInput}
+                onChangeText={(text) => this.setState({text: text})}
+                onSubmitEditing={this.handleSubmit}
+                blurOnSubmit
+                returnKeyType='done'
+                returnKeyLabel='done'
+                clearButtonMode="always"
               />
+              
             </View>
 
           </KeyboardAvoidingView>
